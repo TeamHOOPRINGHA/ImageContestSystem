@@ -256,6 +256,16 @@
     <Content Include="packages.config" />
     <None Include="Project_Readme.html" />
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\Data\ImageContestSystem.Data.Models\ImageContestSystem.Data.Models.csproj">
+      <Project>{f0a64a9d-44a6-4315-b695-e364fa865e59}</Project>
+      <Name>ImageContestSystem.Data.Models</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Data\ImageContestSystem.Data\ImageContestSystem.Data.csproj">
+      <Project>{8cf5639a-810e-48aa-9a71-f0d440eb80c6}</Project>
+      <Name>ImageContestSystem.Data</Name>
+    </ProjectReference>
+  </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
     <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>
