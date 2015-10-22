@@ -3,12 +3,14 @@ namespace ImageContestSystem.Data
     using Models;
     using Microsoft.AspNet.Identity.EntityFramework;
     using System.Data.Entity;
+    using Migrations;
 
     public class ImageContestSystemDbContext : IdentityDbContext<User>
     {
         public ImageContestSystemDbContext()
-            : base("name=ImageContestSystemDbContext")
+            : base("ImageContestSystemDbContext")
         {
+            Database.SetInitializer(new MigrateDatabaseToLatestVersion<ImageContestSystemDbContext, Configuration>());
         }
 
         public virtual IDbSet<Contest> Contests { get; set; }
