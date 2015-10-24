@@ -1,0 +1,23 @@
+﻿@model  IEnumerable<ImageContestSystem.Web.Models.ViewModels.ContestViewModel>
+
+@{
+    ViewBag.Title = "Contests";
+}
+
+<h2>Contests</h2>
+
+@if (TempData["SuccessMessage"] != null)
+{
+    <br />
+    <p class="alert alert-success">@TempData["SuccessMessage"]</p>
+}
+
+@foreach (var contest in Model)
+{
+    <div class="container">
+        <div class="well well-sm">Title: @contest.Title</div>
+        <div class="well well-sm">Description: @contest.Description</div>
+    </div>
+
+    <hr />
+}

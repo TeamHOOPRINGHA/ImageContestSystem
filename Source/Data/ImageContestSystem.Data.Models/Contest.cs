@@ -36,7 +36,7 @@
 
         public virtual User Winner { get; set; }
 
-        public DateTime CreatenOn { get; set; }
+        public DateTime CreatedOn { get; set; }
 
         public VotingStrategy VotingStrategy { get; set; }
 
@@ -44,11 +44,11 @@
 
         public ParticipationStrategy ParticipationStrategy { get; set; }
 
+        public DeadlineStrategy DeadlineStrategy { get; set; }
+
         public DateTime? ClosesOn { get; set; }
 
         public int? NumberOfAllowedParticipants { get; set; }
-
-        public DeadlineStrategy DeadlineStrategy { get; set; }
 
         public virtual ICollection<User> Participants
         {

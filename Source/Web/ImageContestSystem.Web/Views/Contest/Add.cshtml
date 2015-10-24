@@ -1,0 +1,68 @@
+﻿@model ImageContestSystem.Web.Models.ViewModels.ContestViewModel
+
+@{
+    ViewBag.Title = "Add contest";
+}
+
+@using (@Html.BeginForm(FormMethod.Post))
+{
+    @Html.AntiForgeryToken()
+    
+    <div class="form-group">
+        <div class="col-md-1">
+            @Html.LabelFor(m => m.Title)
+        </div>
+        <div class="col-md-11">
+            <p class="text-danger">@Html.ValidationMessageFor(m => m.Title)</p>
+            @Html.EditorFor(m => m.Title)
+        </div>
+    </div>
+
+    <div class="form-group">
+        <div class="col-md-1">
+            @Html.LabelFor(m => m.Description)
+        </div>
+        <div class="col-md-11">
+            <p class="text-danger">@Html.ValidationMessageFor(m => m.Description)</p>
+            @Html.EditorFor(m => m.Description)
+        </div>
+    </div>
+
+    <div class="form-group">
+        <div class="col-md-1">
+            @Html.LabelFor(m => m.ClosesOn)
+        </div>
+        <div class="col-md-11">
+            <p class="text-danger">@Html.ValidationMessageFor(m => m.ClosesOn)</p>
+            @Html.EditorFor(m => m.ClosesOn)
+        </div>
+    </div>
+
+    <div class="form-group">
+        <div class="col-md-1">
+            <label for="NumberOfAllowedParticipants">Participants</label>
+        </div>
+        <div class="col-md-11">
+            <p class="text-danger">@Html.ValidationMessageFor(m => m.NumberOfAllowedParticipants)</p>
+            @Html.EditorFor(m => m.NumberOfAllowedParticipants)
+        </div>
+    </div>
+
+    <div class="form-group">
+        <div class="col-md-1">
+            <label for="ParticipationStrategy">Strategy</label>
+        </div>
+        <div class="col-md-11">
+            <p class="text-danger">@Html.ValidationMessageFor(m => m.ParticipationStrategy)</p>
+            @Html.EditorFor(m => m.ParticipationStrategy)
+        </div>
+    </div>
+
+    <div class="form-group">
+        <div class="col-md-12">
+            <input type="submit" class="btn btn-success" value="Create" />
+        </div>
+    </div>
+}
+
+</div>
