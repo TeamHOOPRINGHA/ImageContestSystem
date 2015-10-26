@@ -24,6 +24,7 @@
                 var output = contests
                     .Select(c => new ContestViewModel()
                     {
+                        Id = c.Id,
                         Title = c.Title,
                         Description = c.Description
                     }).ToList();
@@ -35,12 +36,14 @@
                 var output = contests
                     .Select(c => new ContestViewModel()
                     {
+                        Id = c.Id,
                         Title = c.Title,
                         Description = c.Description,
                         CountOfParticipants = c.Participants.Count,
                         ClosesOn = c.ClosesOn,
                         NumberOfAllowedParticipants = c.NumberOfAllowedParticipants,
-                        ParticipationStrategy = c.ParticipationStrategy
+                        ParticipationStrategy = c.ParticipationStrategy,
+                        HasParticipated = c.Participants.Any(p => p.Id == loggedUserId)
                     }).ToList();
 
                 return View("ViewByAuthorized", output);
@@ -106,6 +109,7 @@
 
             var contest = new ContestViewModel()
             {
+                Id = searchedContest.Id,
                 Title = searchedContest.Title,
                 Description = searchedContest.Description,
                 CreatedOn = searchedContest.CreatedOn,

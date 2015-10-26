@@ -24,6 +24,11 @@
                     <li>@Html.ActionLink("Home", "Index", "Home")</li>
                     <li>@Html.ActionLink("About", "About", "Home")</li>
                     <li>@Html.ActionLink("Contact", "Contact", "Home")</li>
+                    @if (User.Identity.IsAuthenticated)
+                    {
+                        <li>@Html.ActionLink("Contests", "Index", "Contest", routeValues: null, htmlAttributes: new { title = "Browse existing contests" })</li>
+                        <li>@Html.ActionLink("Profile", "ViewProfile", "User", routeValues: null, htmlAttributes: new { title = "Your profile" })</li>
+                    }
                     @if (User.IsInRole("Administrator"))
                     {
                         <li>@Html.ActionLink("Admin", "Index", "Home", new { Area = "Administration" }, null)</li>

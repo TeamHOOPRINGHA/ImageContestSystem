@@ -7,6 +7,8 @@
 
     public class ContestViewModel
     {
+        public int Id { get; set; }
+
         [Required]
         public string Title { get; set; }
 
@@ -28,5 +30,7 @@
         public int? NumberOfAllowedParticipants { get; set; }
         
         public int CountOfParticipants { get; set; }
+
+        public bool HasParticipated { get; set; }
     }
 }

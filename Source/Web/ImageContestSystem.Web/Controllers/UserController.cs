@@ -4,9 +4,11 @@
     using Microsoft.AspNet.Identity;
     using System.Linq;
     using System.Web.Mvc;
+    using System.Web;
 
     public class UserController : BaseController
     {
+        [HttpGet]
         public ActionResult Index()
         {
             return View();
@@ -23,6 +25,24 @@
                 .FirstOrDefault();
             
             return View(userProfile);
+        }
+
+        [Authorize]
+        public ActionResult ApplyToContest(int id)
+        {
+            var loggedUserId = this.User.Identity.GetUserId();
+            var loggedUser = this.Data.Users.Find(loggedUserId);
+            var contest = this.Data.Contests.Find(id);
+
+            if (contest.Participants.Any(p => p.Id == loggedUserId))
+            {
+                throw new HttpException();
+            }
+
+            contest.Participants.Add(loggedUser);
+            this.Data.SaveChanges();
+
+            return RedirectToAction("Index", "Contest");
         }
     }
 }

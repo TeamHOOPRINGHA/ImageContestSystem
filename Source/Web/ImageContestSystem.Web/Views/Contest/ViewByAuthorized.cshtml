@@ -21,9 +21,9 @@
         <div class="well well-sm">Number of allowed participants: @contest.NumberOfAllowedParticipants</div>
         <div class="well well-sm">Closes on: @contest.ClosesOn</div>
         <div class="form-group">Participation Strategy: @contest.ParticipationStrategy</div>
-        @if (contest.ParticipationStrategy == 0)
+        @if (contest.ParticipationStrategy == 0 && !contest.HasParticipated)
         {
-            <button class="btn btn-group">Join</button>
+            @Html.ActionLink("Participate", "ApplyToContest", "User", new { Id = contest.Id }, new { title = "Participate" })
         }
     </div>
 
