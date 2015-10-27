@@ -13,8 +13,8 @@
     <div class="form-group">Number of Allowed participants: @Model.NumberOfAllowedParticipants</div>
     <div class="form-group">Closes on: @Model.ClosesOn</div>
     <div class="form-group">Participation Strategy: @Model.ParticipationStrategy</div>
-    @if (Model.ParticipationStrategy == 0)
+    @if (Model.ParticipationStrategy == 0 && !Model.HasParticipated)
     {
-        <button class="btn btn-group">Join</button>
+        @Html.ActionLink("Participate", "ApplyToContest", "User", new { Id = Model.Id }, new { @class = "btn btn-primary", title = "Participate" })
     }
 </div>

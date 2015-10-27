@@ -6,6 +6,7 @@
     using System;
     using System.Linq;
     using System.Web.Mvc;
+    using AutoMapper.QueryableExtensions;
 
     public class ContestController : BaseController
     {
@@ -100,25 +101,25 @@
 
         public ActionResult View(int id)
         {
-            var searchedContest = this.Data.Contests.Find(id);
-
+            var loggedUserId = User.Identity.GetUserId();
+            var user = this.Data.Users.All().FirstOrDefault(u => u.Id == loggedUserId);
+            var searchedContest = this.Data.Contests
+                .All()
+                .Where(c => c.Id == id)
+                .ProjectTo<ContestViewModel>()
+                .FirstOrDefault();
+            
             if (searchedContest == null)
             {
                 return View("Error");
             }
 
-            var contest = new ContestViewModel()
+            if (user != null)
             {
-                Id = searchedContest.Id,
-                Title = searchedContest.Title,
-                Description = searchedContest.Description,
-                CreatedOn = searchedContest.CreatedOn,
-                ClosesOn = searchedContest.ClosesOn,
-                NumberOfAllowedParticipants = searchedContest.NumberOfAllowedParticipants,
-                ParticipationStrategy = searchedContest.ParticipationStrategy
-            };
+                return View("ViewByAuthorized", searchedContest);
+            }
 
-            return View(contest);
+            return View("ViewByAnonymous", searchedContest);
         }
     }
 }

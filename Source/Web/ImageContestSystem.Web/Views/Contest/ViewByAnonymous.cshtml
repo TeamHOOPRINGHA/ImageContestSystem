@@ -1,4 +1,4 @@
-﻿@model  IEnumerable<ImageContestSystem.Web.Models.ViewModels.ContestViewModel>
+﻿@model ImageContestSystem.Web.Models.ViewModels.ContestViewModel
 
 @{
     ViewBag.Title = "Contests";
@@ -12,12 +12,9 @@
     <p class="alert alert-success">@TempData["SuccessMessage"]</p>
 }
 
-@foreach (var contest in Model)
-{
-    <div class="container">
-        <div class="well well-sm">Title: @contest.Title</div>
-        <div class="well well-sm">Description: @contest.Description</div>
-    </div>
+<div class="container">
+    <div class="well well-sm">Title: @Model.Title</div>
+    <div class="well well-sm">Description: @Model.Description</div>
+</div>
 
-    <hr />
-}
+<hr />

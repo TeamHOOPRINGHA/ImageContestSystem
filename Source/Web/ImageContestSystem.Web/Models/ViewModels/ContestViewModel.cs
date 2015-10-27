@@ -1,11 +1,12 @@
 ﻿namespace ImageContestSystem.Web.Models.ViewModels
 {
-    using ImageContestSystem.Data.Models;
+    using Data.Models;
+    using Infrastructure.Mapping;
     using Data.Models.Enums;
     using System;
     using System.ComponentModel.DataAnnotations;
 
-    public class ContestViewModel
+    public class ContestViewModel : IMapFrom<Contest>
     {
         public int Id { get; set; }
 

@@ -1,4 +1,4 @@
-﻿@model  IEnumerable<ImageContestSystem.Web.Models.ViewModels.ContestViewModel>
+﻿@model ImageContestSystem.Web.Models.ViewModels.ContestViewModel
 
 @{
     ViewBag.Title = "Contests";
@@ -12,20 +12,17 @@
     <p class="alert alert-success">@TempData["SuccessMessage"]</p>
 }
 
-@foreach (var contest in Model)
-{
-    <div class="well well-bg">
-        <div class="well well-sm">Title: @contest.Title</div>
-        <div class="well well-sm">Description: @contest.Description</div>
-        <div class="well well-sm">Count of participants: @contest.CountOfParticipants</div>
-        <div class="well well-sm">Number of allowed participants: @contest.NumberOfAllowedParticipants</div>
-        <div class="well well-sm">Closes on: @contest.ClosesOn</div>
-        <div class="form-group">Participation Strategy: @contest.ParticipationStrategy</div>
-        @if (contest.ParticipationStrategy == 0 && !contest.HasParticipated)
-        {
-            @Html.ActionLink("Participate", "ApplyToContest", "User", new { Id = contest.Id }, new { title = "Participate" })
-        }
-    </div>
+<div class="well well-bg">
+    <div class="well well-sm">Title: @Model.Title</div>
+    <div class="well well-sm">Description: @Model.Description</div>
+    <div class="well well-sm">Count of participants: @Model.CountOfParticipants</div>
+    <div class="well well-sm">Number of allowed participants: @Model.NumberOfAllowedParticipants</div>
+    <div class="well well-sm">Closes on: @Model.ClosesOn</div>
+    <div class="form-group">Participation Strategy: @Model.ParticipationStrategy</div>
+    @if (Model.ParticipationStrategy == 0 && !Model.HasParticipated)
+    {
+        @Html.ActionLink("Participate", "ApplyToContest", "User", new { Id = Model.Id }, new { @class = "btn btn-primary", title = "Participate" })
+    }
+</div>
 
-    <hr />
-}
+<hr />
