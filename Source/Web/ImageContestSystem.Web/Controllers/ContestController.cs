@@ -17,6 +17,7 @@
 
             var contests = this.Data.Contests
                 .All()
+                .Where(c => c.ClosesOn > DateTime.Now)
                 .OrderByDescending(c => c.CreatedOn)
                 .Take(5);
 
@@ -30,7 +31,7 @@
                         Description = c.Description
                     }).ToList();
 
-                return View("ViewByAnonymous", output);
+                return View("ViewAllByAnonymous", output);
             }
             else
             {
@@ -47,7 +48,7 @@
                         HasParticipated = c.Participants.Any(p => p.Id == loggedUserId)
                     }).ToList();
 
-                return View("ViewByAuthorized", output);
+                return View("ViewAllByAuthorized", output);
             }
         }
 
@@ -121,5 +122,16 @@
 
             return View("ViewByAnonymous", searchedContest);
         }
-    }
+
+        public ActionResult ViewPast()
+        {
+            var contests = this.Data.Contests.All()
+                .Where(c => c.ClosesOn <= DateTime.Now)
+                .OrderByDescending(c => c.ClosesOn)
+                .ProjectTo<ContestViewModel>()
+                .ToList();
+
+            return View(contests);
+        }
+}
 }

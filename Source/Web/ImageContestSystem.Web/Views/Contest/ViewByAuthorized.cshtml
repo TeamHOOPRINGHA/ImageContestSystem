@@ -1,28 +1,20 @@
 ﻿@model ImageContestSystem.Web.Models.ViewModels.ContestViewModel
 
 @{
-    ViewBag.Title = "Contests";
+    ViewBag.Title = "View contest";
 }
 
-<h2>Contests</h2>
+<h2>Contest</h2>
 
-@if (TempData["SuccessMessage"] != null)
-{
-    <br />
-    <p class="alert alert-success">@TempData["SuccessMessage"]</p>
-}
-
-<div class="well well-bg">
-    <div class="well well-sm">Title: @Model.Title</div>
-    <div class="well well-sm">Description: @Model.Description</div>
-    <div class="well well-sm">Count of participants: @Model.CountOfParticipants</div>
-    <div class="well well-sm">Number of allowed participants: @Model.NumberOfAllowedParticipants</div>
-    <div class="well well-sm">Closes on: @Model.ClosesOn</div>
-    <div class="form-group">Participation Strategy: @Model.ParticipationStrategy</div>
+<div class="well well-lg">
+    <div><strong>Title: </strong>@Model.Title</div>
+    <div><strong>Description: </strong>@Model.Description </div>
+    <div><strong>Count of participants: </strong>@Model.CountOfParticipants</div>
+    <div><strong>Number of Allowed participants: </strong>@Model.NumberOfAllowedParticipants </div>
+    <div><strong>Closes on: </strong>@Model.ClosesOn</div>
+    <div><strong>Participation Strategy: </strong>@Model.ParticipationStrategy</div>
     @if (Model.ParticipationStrategy == 0 && !Model.HasParticipated)
     {
-        @Html.ActionLink("Participate", "ApplyToContest", "User", new { Id = Model.Id }, new { @class = "btn btn-primary", title = "Participate" })
+        @Html.ActionLink("Participate", "ApplyToContest", "Users", new { Id = Model.Id }, new { @class = "btn btn-primary", title = "Participate" })
     }
 </div>
-
-<hr />

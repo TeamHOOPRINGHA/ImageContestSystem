@@ -270,12 +270,15 @@
     <Content Include="Views\Shared\Lockout.cshtml" />
     <Content Include="Views\Shared\_LoginPartial.cshtml" />
     <Content Include="Views\Contest\Add.cshtml" />
-    <Content Include="Views\Contest\ViewByAnonymous.cshtml" />
-    <Content Include="Views\Contest\ViewByAuthorized.cshtml" />
+    <Content Include="Views\Contest\ViewAllByAnonymous.cshtml" />
+    <Content Include="Views\Contest\ViewAllByAuthorized.cshtml" />
     <Content Include="Views\Contest\View.cshtml" />
     <Content Include="Views\Shared\EditorTemplates\DateTime.cshtml" />
     <Content Include="Views\Shared\EditorTemplates\String.cshtml" />
     <Content Include="Views\User\ViewProfile.cshtml" />
+    <Content Include="Views\Contest\ViewPast.cshtml" />
+    <Content Include="Views\Contest\ViewByAnonymous.cshtml" />
+    <Content Include="Views\Contest\ViewByAuthorized.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

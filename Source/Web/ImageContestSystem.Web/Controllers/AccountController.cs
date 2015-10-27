@@ -9,9 +9,9 @@
     using Microsoft.AspNet.Identity.Owin;
     using Microsoft.Owin.Security;
 
-    using ImageContestSystem.Web.Models;
+    using Models;
+    using Data.Models;
 
-    using ImageContestSystem.Data.Models;
     [Authorize]
     public class AccountController : Controller
     {

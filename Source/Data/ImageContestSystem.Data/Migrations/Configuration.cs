@@ -27,13 +27,13 @@ namespace ImageContestSystem.Data.Migrations
             }
 
             // if user doesn't exist, create one and add it to the admin role
-            if (!context.Users.Any(u => u.UserName == "admin@admin.com"))
+            if (!context.Users.Any(u => u.UserName == resources.AdminName))
             {
                 var userStore = new UserStore<User>(context);
                 var userManager = new UserManager<User>(userStore);
-                var user = new User { UserName = "admin@admin.com", Email = "admin@admin.com" };
+                var user = new User { UserName = resources.AdminName, Email = resources.AdminEmail };
 
-                userManager.Create(user, "adminadmin");
+                userManager.Create(user, resources.AdminPassword);
                 userManager.AddToRole(user.Id, "Administrator");
             }
 
