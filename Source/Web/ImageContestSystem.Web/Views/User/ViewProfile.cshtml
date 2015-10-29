@@ -7,10 +7,5 @@
 <h2>Welcome, @Model.Username</h2>
 
 <div>
-    <p>My Contests: @Model.OwnContest</p>
-    <p>Participated in Contests: @Model.ParticipatedInContests</p>
-    <p>Won Contests: @Model.WonContests</p>
-</div>
-<div>
-    @Html.ActionLink("Contest Management", "Index", "Users", null, new { title = "Manage contests" })
+    @Html.Partial("_UserAsideMenu")
 </div>
