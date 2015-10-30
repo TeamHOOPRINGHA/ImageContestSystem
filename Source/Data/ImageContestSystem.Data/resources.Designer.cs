@@ -70,7 +70,7 @@ namespace ImageContestSystem.Data {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to admin@admin.com.
+        ///   Looks up a localized string similar to admin.
         /// </summary>
         internal static string AdminName {
             get {

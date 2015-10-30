@@ -49,6 +49,9 @@ namespace ImageContestSystem.Web.Models
     public class LoginViewModel
     {
         [Required]
+        [Display(Name = "Username")]
+        public string Username { get; set; }
+
         [Display(Name = "Email")]
         [EmailAddress]
         public string Email { get; set; }
@@ -65,6 +68,9 @@ namespace ImageContestSystem.Web.Models
     public class RegisterViewModel
     {
         [Required]
+        [Display(Name = "Username")]
+        public string Username { get; set; }
+
         [EmailAddress]
         [Display(Name = "Email")]
         public string Email { get; set; }

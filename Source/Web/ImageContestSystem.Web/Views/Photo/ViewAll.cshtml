@@ -1,0 +1,9 @@
+﻿@using ImageContestSystem.Web.Models.ViewModels
+@model IEnumerable<PhotoViewModel>
+
+<h2>My Photos</h2>
+
+@foreach (var photo in Model)
+{
+    @Html.Partial("_ViewPhoto", photo)
+}

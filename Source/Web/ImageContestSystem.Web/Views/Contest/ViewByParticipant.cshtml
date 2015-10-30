@@ -11,7 +11,7 @@
         <div>
             <strong>Description: </strong>@Model.Description
         </div>
-        <div><strong>Created by: </strong> @Model.Creator</div>
+        <div><strong>Created by: </strong> @Html.ActionLink(@Model.Creator, "View", "User", new { username = @Model.Creator }, new { title = "View profile" })</div>
         <div>
             <strong>Started: </strong>@Model.CreatedOn
         </div>

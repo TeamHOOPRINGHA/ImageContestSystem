@@ -191,7 +191,6 @@
     <Compile Include="Infrastructure\Mapping\IHaveCustomMappings.cs" />
     <Compile Include="Infrastructure\Mapping\IMapFrom.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
-    <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
     <Compile Include="Models\ViewModels\ContestParticipantViewModel.cs" />
     <Compile Include="Models\ViewModels\ContestViewModel.cs" />
@@ -291,8 +290,11 @@
     <Content Include="Views\Contest\ViewByAuthorized.cshtml" />
     <Content Include="Views\Contest\ViewByParticipant.cshtml" />
     <Content Include="Views\Contest\_AddPhoto.cshtml" />
-    <Content Include="Views\Shared\DisplayTemplates\ContestViewModel.cshtml" />
     <Content Include="Views\Shared\_UserAsideMenu.cshtml" />
+    <Content Include="Views\User\ViewAll.cshtml" />
+    <Content Include="Views\Photo\ViewAll.cshtml" />
+    <Content Include="Views\Shared\_ViewPhoto.cshtml" />
+    <Content Include="Views\Shared\_ViewUser.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -300,7 +302,7 @@
     <Folder Include="Areas\Administration\Views\Contest\" />
     <Folder Include="Areas\Administration\Views\Photo\" />
     <Folder Include="Areas\Administration\Views\User\" />
-    <Folder Include="Views\Photo\" />
+    <Folder Include="Views\Shared\DisplayTemplates\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />

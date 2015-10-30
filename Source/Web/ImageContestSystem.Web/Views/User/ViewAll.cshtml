@@ -1,0 +1,7 @@
+﻿@using ImageContestSystem.Web.Models.ViewModels
+@model IEnumerable<UserProfileViewModel>
+
+@foreach (var user in Model)
+{
+    @Html.Partial("_ViewUser", user)
+}

@@ -8,12 +8,6 @@
 
     public class UserController : BaseController
     {
-        [HttpGet]
-        public ActionResult Index()
-        {
-            return View();
-        }
-
         [Authorize]
         public ActionResult ViewProfile()
         {
@@ -43,6 +37,50 @@
             this.Data.SaveChanges();
 
             return RedirectToAction("Index", "Contest");
+        }
+
+        [Authorize]
+        public ActionResult InviteToContest(string invitedUsername, int contestId)
+        {
+            var loggedUserId = this.User.Identity.GetUserId();
+            var contest = this.Data.Contests.Find(contestId);
+            
+            if (loggedUserId != contest.CreatorId)
+            {
+                throw new HttpException();
+            }
+
+            var invitedUser = this.Data.Users.All().FirstOrDefault(u => u.UserName == invitedUsername);
+            if (invitedUser == null)
+            {
+                throw new HttpException();
+            }
+
+            invitedUser.ParticipatedIn.Add(contest);
+            contest.Participants.Add(invitedUser);
+            this.Data.SaveChanges();
+
+            return RedirectToAction("View", "Contest", contest);
+        }
+
+        public ActionResult View(string username)
+        {
+            var user = this.Data.Users.All()
+                .Where(u => u.UserName == username)
+                .Select(UserProfileViewModel.Create)
+                .FirstOrDefault();
+
+            return View(user);
+        }
+
+        public ActionResult ViewAll()
+        {
+            var users = this.Data.Users.All()
+                .Take(10)
+                .Select(UserProfileViewModel.Create)
+                .ToList();
+
+            return View(users);
         }
     }
 }
