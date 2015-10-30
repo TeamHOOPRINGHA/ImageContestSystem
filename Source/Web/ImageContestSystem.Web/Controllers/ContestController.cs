@@ -87,7 +87,10 @@
                     CreatedOn = DateTime.Now,
                     ClosesOn = model.ClosesOn,
                     NumberOfAllowedParticipants = model.NumberOfAllowedParticipants,
-                    ParticipationStrategy = model.ParticipationStrategy
+                    ParticipationStrategy = model.ParticipationStrategy,
+                    DeadlineStrategy = model.DeadlineStrategy,
+                    RewardStrategy = model.RewardStrategy,
+                    VotingStrategy = model.VotingStrategy
                 };
             
                 user.CreatedContests.Add(newContest);

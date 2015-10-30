@@ -19,16 +19,22 @@
 
         public DateTime CreatedOn { get; set; }
 
+        [Display(Name = "Voting strategy")]
         public VotingStrategy VotingStrategy { get; set; }
 
+        [Display(Name = "Reward strategy")]
         public RewardStrategy RewardStrategy { get; set; }
 
+        [Display(Name = "Participation strategy")]
         public ParticipationStrategy ParticipationStrategy { get; set; }
 
+        [Display(Name = "Deadline strategy")]
         public DeadlineStrategy DeadlineStrategy { get; set; }
 
+        [Display(Name = "Closes on")]
         public DateTime? ClosesOn { get; set; }
 
+        [Display(Name = "Participants")]
         public int? NumberOfAllowedParticipants { get; set; }
 
         public int CountOfParticipants { get; set; }
