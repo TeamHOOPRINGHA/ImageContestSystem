@@ -10,7 +10,8 @@ namespace ImageContestSystem.Web
         {
             bundles.Add(new ScriptBundle("~/bundles/jquery").Include(
                         "~/Scripts/jquery-{version}.js",
-                        "~/Scripts/application/adminAjax.js"));
+                        "~/Scripts/application/adminAjax.js",
+                        "~/Scripts/application/modalHelpers.js"));
 
             bundles.Add(new ScriptBundle("~/bundles/jqueryval").Include(
                         "~/Scripts/jquery.validate*"));

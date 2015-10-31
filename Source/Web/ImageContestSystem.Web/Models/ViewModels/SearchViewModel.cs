@@ -4,6 +4,6 @@
 
     public class SearchViewModel
     {
-        public ICollection<UserProfileViewModel> Users { get; set; }
+        public ICollection<UserInvitationViewModel> Users { get; set; }
     }
 }

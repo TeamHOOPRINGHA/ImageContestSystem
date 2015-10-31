@@ -5,6 +5,7 @@
     using System.Linq;
     using System.Web.Mvc;
     using System.Web;
+    using System.Net;
     using AutoMapper.QueryableExtensions;
 
     public class UserController : BaseController
@@ -41,17 +42,23 @@
         }
 
         [Authorize]
-        public ActionResult InviteToContest(string invitedUsername, int contestId)
+        [HttpPost]
+        public ActionResult InviteToContest(UserInvitationViewModel model)
         {
             var loggedUserId = this.User.Identity.GetUserId();
-            var contest = this.Data.Contests.Find(contestId);
+            var contest = this.Data.Contests.Find(model.ContestId);
+
+            if (!this.ModelState.IsValid)
+            {
+                throw new HttpException();
+            }
             
             if (loggedUserId != contest.CreatorId)
             {
                 throw new HttpException();
             }
 
-            var invitedUser = this.Data.Users.All().FirstOrDefault(u => u.UserName == invitedUsername);
+            var invitedUser = this.Data.Users.All().FirstOrDefault(u => u.Id == model.UserId);
             if (invitedUser == null)
             {
                 throw new HttpException();
@@ -98,14 +105,19 @@
             return View(userContests);
         }
 
-        public ActionResult SearchUser(string username)
+        public ActionResult SearchUser(string username, int contestId)
         {
             username = username.ToLower();
             var model = new SearchViewModel
             {
                 Users = this.Data.Users.All()
                     .Where(u => u.UserName.ToLower().Contains(username))
-                    .Select(UserProfileViewModel.Create)
+                    .Select(u => new UserInvitationViewModel
+                    {
+                        ContestId = contestId,
+                        UserId = u.Id,
+                        Username = u.UserName
+                    })
                     .ToList()
             };
 

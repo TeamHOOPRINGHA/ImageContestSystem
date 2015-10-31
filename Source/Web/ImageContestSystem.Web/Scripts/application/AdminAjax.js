@@ -21,13 +21,3 @@ $("#show-photos").click(function () {
         $("#wrapper").html(result);
     });
 });
-
-$("#user-search-field").keyup(function (input) {
-    $("#user-search-result").html("");
-
-    if ($(input.target).val().length > 0) {
-        $.get("/User/SearchUser/?username=" + $(input.target).val(), function (result) {
-            $("#wrapper").html(result);
-        });
-    }
-});

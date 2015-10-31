@@ -1,7 +1,36 @@
 ﻿@using ImageContestSystem.Web.Models.ViewModels
-@model IEnumerable<UserProfileViewModel>
+@model ICollection<ImageContestSystem.Web.Models.ViewModels.ContestViewModel>
 
-@foreach (var user in Model)
-{
-    @Html.Partial("_ViewUser", user)
-}
+    <div class="row">
+        <h2>My Contests</h2>
+        <div class="col-md-6">
+            @foreach (var contest in Model)
+            {
+                <div class="well well-bg" style="border: 1px solid gray">
+                    <h4>@contest.Title</h4>
+                    <div class="well well-bg" style="border: 1px solid gray">
+                        <div><strong>Finishes: </strong>@contest.ClosesOn</div>
+                        <div>
+                            <strong>Photos: </strong>Temporary unavailable @contest.Id
+                        </div>
+                    </div>
+
+                    <button type="button" class="btn btn-info btn-sm" data-toggle="modal" data-target="#inviteUsers" data-contest-id="@contest.Id">Invite Users</button>
+                    <button type="button" class="btn btn-info btn-sm" data-toggle="modal" data-target="#editContest" data-contest-id="@contest.Id">Edit Contest</button>
+
+                </div>
+            }
+        </div>
+    </div>
+
+    <div id="inviteUsers" class="modal fade" role="dialog">
+        <div class="modal-dialog">
+            @Html.Partial("_InviteUsersPartial")
+        </div>
+    </div>
+
+    <div id="editContest" class="modal fade" role="dialog">
+        <div class="modal-dialog">
+            @Html.Partial("_EditContest", new EditContestViewModel())
+        </div>
+    </div>

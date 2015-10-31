@@ -7,6 +7,7 @@
     using System.Linq;
     using System.Web.Mvc;
     using AutoMapper.QueryableExtensions;
+    using System.Net;
 
     public class ContestController : BaseController
     {
@@ -155,5 +156,41 @@
 
             return View(contests);
         }
-}
+
+        [Authorize]
+        public ActionResult Edit(EditContestViewModel model)
+        {
+            if (model == null || !this.ModelState.IsValid)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest, "Invalid data");
+            }
+ 
+            var editedContest = this.Data.Contests.Find(model.Id);
+ 
+            if (editedContest == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.NotFound, "404");
+            }
+ 
+            if(model.ClosesOn != null)
+            {
+                editedContest.ClosesOn = model.ClosesOn; 
+            }
+ 
+            if (model.Description != null)
+            {
+                editedContest.Description = model.Description;
+            }
+ 
+            if (model.NumberOfAllowedParticipants != null)
+            {
+                editedContest.NumberOfAllowedParticipants = model.NumberOfAllowedParticipants;
+            }
+            
+            editedContest.VotingStrategy = model.VotingStrategy;
+            this.Data.SaveChanges();
+ 
+            return RedirectToAction("MyContests", "User");
+        }
+    }
 }
