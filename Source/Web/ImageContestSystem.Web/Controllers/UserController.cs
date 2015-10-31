@@ -5,6 +5,7 @@
     using System.Linq;
     using System.Web.Mvc;
     using System.Web;
+    using AutoMapper.QueryableExtensions;
 
     public class UserController : BaseController
     {
@@ -81,6 +82,34 @@
                 .ToList();
 
             return View(users);
+        }
+
+        [Authorize]
+        public ActionResult MyContests()
+        {
+            var loggedUserId = this.User.Identity.GetUserId();
+            var userContests = this.Data.Contests.All()
+                .Where(c => c.CreatorId == loggedUserId)
+                .Take(5)
+                .OrderByDescending(c => c.ClosesOn)
+                .ProjectTo<ContestViewModel>()
+                .ToList();
+
+            return View(userContests);
+        }
+
+        public ActionResult SearchUser(string username)
+        {
+            username = username.ToLower();
+            var model = new SearchViewModel
+            {
+                Users = this.Data.Users.All()
+                    .Where(u => u.UserName.ToLower().Contains(username))
+                    .Select(UserProfileViewModel.Create)
+                    .ToList()
+            };
+
+            return this.PartialView("_UserSearchPartial", model);
         }
     }
 }
