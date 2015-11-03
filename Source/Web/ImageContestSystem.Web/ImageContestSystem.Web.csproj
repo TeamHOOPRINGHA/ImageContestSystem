@@ -219,6 +219,7 @@
     <Compile Include="Models\ViewModels\ContestParticipantViewModel.cs" />
     <Compile Include="Models\ViewModels\ContestViewModel.cs" />
     <Compile Include="Models\ViewModels\EditContestViewModel.cs" />
+    <Compile Include="Models\ViewModels\HomeViewModel.cs" />
     <Compile Include="Models\ViewModels\PhotoViewModel.cs" />
     <Compile Include="Models\ViewModels\SearchViewModel.cs" />
     <Compile Include="Models\ViewModels\UserInvitationViewModel.cs" />
@@ -241,6 +242,7 @@
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
     <Content Include="Scripts\application\AdminAjax.js" />
+    <Content Include="Scripts\application\HomeAjax.js" />
     <Content Include="Scripts\application\ModalHelpers.js" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
@@ -290,8 +292,6 @@
     <Content Include="Views\_ViewStart.cshtml" />
     <Content Include="Views\Shared\Error.cshtml" />
     <Content Include="Views\Shared\_Layout.cshtml" />
-    <Content Include="Views\Home\About.cshtml" />
-    <Content Include="Views\Home\Contact.cshtml" />
     <Content Include="Views\Home\Index.cshtml" />
     <Content Include="Views\Account\_ExternalLoginsListPartial.cshtml" />
     <Content Include="Views\Account\ConfirmEmail.cshtml" />
@@ -319,21 +319,22 @@
     <Content Include="Views\Contest\View.cshtml" />
     <Content Include="Views\Shared\EditorTemplates\DateTime.cshtml" />
     <Content Include="Views\Shared\EditorTemplates\String.cshtml" />
-    <Content Include="Views\User\ViewProfile.cshtml" />
     <Content Include="Views\Contest\ViewPast.cshtml" />
     <Content Include="Views\Contest\ViewByAnonymous.cshtml" />
     <Content Include="Views\Contest\ViewByAuthorized.cshtml" />
     <Content Include="Views\Contest\ViewByParticipant.cshtml" />
     <Content Include="Views\Contest\_AddPhoto.cshtml" />
-    <Content Include="Views\Shared\_UserAsideMenu.cshtml" />
+    <Content Include="Views\User\_UserAsideMenu.cshtml" />
     <Content Include="Views\User\ViewAll.cshtml" />
     <Content Include="Views\Photo\ViewAll.cshtml" />
-    <Content Include="Views\Shared\_ViewPhoto.cshtml" />
-    <Content Include="Views\Shared\_ViewUser.cshtml" />
-    <Content Include="Views\User\MyContests.cshtml" />
+    <Content Include="Views\User\_ViewUser.cshtml" />
+    <Content Include="Views\Home\MyContests.cshtml" />
     <Content Include="Views\Shared\_InviteUsersPartial.cshtml" />
     <Content Include="Views\Shared\_UserSearchPartial.cshtml" />
     <Content Include="Views\Shared\_EditContest.cshtml" />
+    <Content Include="Views\Home\_HomeContent.cshtml" />
+    <Content Include="Views\Home\_UserAsideMenu.cshtml" />
+    <Content Include="Views\Home\MyPhotos.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

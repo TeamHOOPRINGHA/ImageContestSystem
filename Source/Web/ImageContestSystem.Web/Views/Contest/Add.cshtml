@@ -30,6 +30,16 @@
 
     <div class="form-group row">
         <div class="col-md-1">
+            @Html.LabelFor(m => m.DeadlineStrategy)
+        </div>
+        <div class="col-md-11">
+            <p class="text-danger">@Html.ValidationMessageFor(m => m.DeadlineStrategy)</p>
+            @Html.EnumDropDownListFor(m => m.DeadlineStrategy, new { @class = "form-control", id = "deadline-strategy" })
+        </div>
+    </div>
+
+    <div class="form-group row" id="deadline-input">
+        <div class="col-md-1">
             @Html.LabelFor(m => m.ClosesOn)
         </div>
         <div class="col-md-11">
@@ -38,7 +48,7 @@
         </div>
     </div>
 
-    <div class="form-group row">
+    <div class="form-group row" id="number-of-participants" style="display: none">
         <div class="col-md-1">
             @Html.LabelFor(m => m.NumberOfAllowedParticipants)
         </div>
@@ -77,16 +87,6 @@
             @Html.EnumDropDownListFor(m => m.RewardStrategy, new { @class = "form-control" })
         </div>
     </div>
-
-    <div class="form-group row">
-        <div class="col-md-1">
-            @Html.LabelFor(m => m.DeadlineStrategy)
-        </div>
-        <div class="col-md-11">
-            <p class="text-danger">@Html.ValidationMessageFor(m => m.DeadlineStrategy)</p>
-            @Html.EnumDropDownListFor(m => m.DeadlineStrategy, new { @class = "form-control" })
-        </div>
-     </div>
 
     <div class="form-group row">
         <div class="col-md-12">

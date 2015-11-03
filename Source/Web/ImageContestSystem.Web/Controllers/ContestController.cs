@@ -74,7 +74,7 @@
             contest.IsDismissed = true;
             this.Data.SaveChanges();
 
-            return RedirectToAction("MyContests", "User");
+            return RedirectToAction("Index", "Home");
         }
 
         [HttpPost]
@@ -137,7 +137,11 @@
                     Creator = contest.Creator.UserName,
                     CreatedOn = contest.CreatedOn,
                     ClosesOn = contest.ClosesOn,
-                    Pictures = contest.Pictures.Count,
+                    Pictures = contest.Pictures.Take(10).Select(p => new PhotoViewModel
+                    {
+                        Author = p.Author.UserName,
+                        Location = p.LocationPath
+                    }).ToList(),
                     HasAddedPhoto = contest.Pictures.Any(p => p.AuthorId == loggedUserId)
                 };
 

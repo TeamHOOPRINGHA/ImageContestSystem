@@ -11,19 +11,6 @@
     public class UserController : BaseController
     {
         [Authorize]
-        public ActionResult ViewProfile()
-        {
-            var loggedUserId = this.User.Identity.GetUserId();
-
-            var userProfile = this.Data.Users.All()
-                .Where(u => u.Id == loggedUserId)
-                .Select(UserProfileViewModel.Create)
-                .FirstOrDefault();
-            
-            return View(userProfile);
-        }
-
-        [Authorize]
         public ActionResult ApplyToContest(int id)
         {
             var loggedUserId = this.User.Identity.GetUserId();
@@ -97,20 +84,6 @@
                 .ToList();
 
             return View(users);
-        }
-
-        [Authorize]
-        public ActionResult MyContests()
-        {
-            var loggedUserId = this.User.Identity.GetUserId();
-            var userContests = this.Data.Contests.All()
-                .Where(c => c.CreatorId == loggedUserId)
-                .Take(5)
-                .OrderByDescending(c => c.ClosesOn)
-                .ProjectTo<ContestViewModel>()
-                .ToList();
-
-            return View(userContests);
         }
 
         public ActionResult SearchUser(string username, int contestId)

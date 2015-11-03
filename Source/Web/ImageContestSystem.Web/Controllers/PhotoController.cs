@@ -46,25 +46,6 @@
             return RedirectToAction("Index", "Contest");
         }
 
-        [Authorize]
-        [HttpGet]
-        public ActionResult ViewAll()
-        {
-            var loggedUserId = this.User.Identity.GetUserId();
-            var ownPhotos = this.Data.Pictures.All()
-                .OrderByDescending(p => p.Votes.Count)
-                .Where(p => p.Author.Id == loggedUserId)
-                .Take(10)
-                .Select(p => new PhotoViewModel
-                {
-                    Location = p.LocationPath,
-                    Author = p.Author.UserName
-                })
-                .ToList();
-
-            return View(ownPhotos);
-        }
-
         private async Task<CloudBlockBlob> UploadBlobAsync(HttpPostedFileBase imageFile)
         {
             string blobName = Guid.NewGuid() + Path.GetExtension(imageFile.FileName); 
