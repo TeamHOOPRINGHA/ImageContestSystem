@@ -8,6 +8,7 @@
     using System.Web.Mvc;
     using AutoMapper.QueryableExtensions;
     using System.Net;
+    using System.Web;
 
     public class ContestController : BaseController
     {
@@ -58,6 +59,22 @@
         public ActionResult Add()
         {
             return View();
+        }
+
+        [Authorize]
+        public ActionResult Dismiss(int id)
+        {
+            var contest = this.Data.Contests.All().Where(c => c.Id == id).FirstOrDefault();
+
+            if (contest == null)
+            {
+                return new HttpNotFoundResult("Contest not found.");
+            }
+
+            contest.IsDismissed = true;
+            this.Data.SaveChanges();
+
+            return RedirectToAction("MyContests", "User");
         }
 
         [HttpPost]
@@ -160,7 +177,12 @@
         [Authorize]
         public ActionResult Edit(EditContestViewModel model)
         {
-            if (model == null || !this.ModelState.IsValid)
+            if (model == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest, "No data");
+            }
+
+            if (!this.ModelState.IsValid)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest, "Invalid data");
             }

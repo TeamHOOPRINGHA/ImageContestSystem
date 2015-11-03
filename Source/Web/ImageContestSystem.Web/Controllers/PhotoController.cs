@@ -3,6 +3,10 @@
     using System;
     using System.Linq;
     using System.Web.Mvc;
+    using System.IO;
+    using System.Threading.Tasks;
+    using System.Web;
+    using Microsoft.WindowsAzure.Storage.Blob;
     using Microsoft.AspNet.Identity;
     using Data.Models;
     using Models.ViewModels;
@@ -11,28 +15,34 @@
     {
         [Authorize]
         [HttpPost]
-        public ActionResult Add(PhotoViewModel model)
+        public async Task<ActionResult> Create(int contestId, HttpPostedFileBase file)
         {
-            if (!this.ModelState.IsValid || model == null)
+            CloudBlockBlob image = null;
+
+            if (file != null && file.ContentLength > 0)
             {
-                return RedirectToAction("Index", "Contest");
+                image= await this.UploadBlobAsync(file);
+            }
+
+            if (image == null)
+            {
+                throw new HttpException();
             }
 
             var loggedUserId = this.User.Identity.GetUserId();
-            var contest = this.Data.Contests.Find(model.ContestId);
+            var contest = this.Data.Contests.Find(contestId);
 
-            var photo = new Picture()
+            var photo = new Picture
             {
                 AuthorId = loggedUserId,
-                ContestId = model.ContestId,
+                ContestId = contestId,
                 CreatedOn = DateTime.Now,
-                LocationPath = model.Location
+                LocationPath = image.Uri.ToString()
             };
 
-            this.Data.Pictures.Add(photo);
             contest.Pictures.Add(photo);
             this.Data.SaveChanges();
-
+ 
             return RedirectToAction("Index", "Contest");
         }
 
@@ -53,6 +63,19 @@
                 .ToList();
 
             return View(ownPhotos);
+        }
+
+        private async Task<CloudBlockBlob> UploadBlobAsync(HttpPostedFileBase imageFile)
+        {
+            string blobName = Guid.NewGuid() + Path.GetExtension(imageFile.FileName); 
+            var imageBlob = imagesContainer.GetBlockBlobReference(blobName);
+
+            using (var fileStream = imageFile.InputStream)
+            {
+                await imageBlob.UploadFromStreamAsync(fileStream);
+            }
+
+            return imageBlob;
         }
     }
 }

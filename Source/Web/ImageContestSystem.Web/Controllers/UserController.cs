@@ -64,11 +64,19 @@
                 throw new HttpException();
             }
 
+            if (contest.Participants.Contains(invitedUser))
+            {
+                var failMessage = string.Format("User {0} already invited", invitedUser.UserName);
+                return this.Content(failMessage, "text/html");
+            }
+
             invitedUser.ParticipatedIn.Add(contest);
             contest.Participants.Add(invitedUser);
             this.Data.SaveChanges();
 
-            return RedirectToAction("View", "Contest", contest);
+            var message = string.Format("Invitation to {0} sent", invitedUser.UserName);
+
+            return this.Content(message, "text/html");
         }
 
         public ActionResult View(string username)

@@ -12,12 +12,12 @@
         }
         else
         {
-            using (@Html.BeginForm("Add", "Photo", FormMethod.Post))
+            using (@Html.BeginForm("Create", "Photo", FormMethod.Post, new { enctype = "multipart/form-data" }))
             {
                 @Html.AntiForgeryToken()
                 <p>Add photo :</p>
-                @Html.TextArea("Location")
-                @Html.Hidden("ContestId", Model.Id)
+                @Html.Hidden("contestId", Model.Id)
+                <input type="file" name="file" id="file" />
                 <input type="submit" class="btn btn-group-sm" value="Add" />
             }
         }
