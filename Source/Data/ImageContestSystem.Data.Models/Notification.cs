@@ -1,5 +1,6 @@
 ﻿namespace ImageContestSystem.Data.Models
 {
+    using System.ComponentModel;
     using System.ComponentModel.DataAnnotations;
 
     public class Notification
@@ -8,6 +9,11 @@
 
         [Required]
         public string Text { get; set; }
+
+        [DefaultValue(false)]
+        public bool IsRead { get; set; }
+
+        public int ContestId { get; set; }
 
         public string SenderId { get; set; }
 
