@@ -201,6 +201,7 @@
     <Compile Include="Areas\Administration\Controllers\HomeController.cs" />
     <Compile Include="Areas\Administration\Controllers\PhotoController.cs" />
     <Compile Include="Areas\Administration\Controllers\UserController.cs" />
+    <Compile Include="Areas\Administration\Models\UserViewModel.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\BaseController.cs" />
     <Compile Include="Controllers\ContestController.cs" />
@@ -263,6 +264,7 @@
     <Content Include="Areas\Administration\Views\Shared\_ShowContestsPartial.cshtml" />
     <Content Include="Areas\Administration\Views\Shared\_ShowPhotosPartial.cshtml" />
     <Content Include="Areas\Administration\Views\Shared\_ShowUsersPartial.cshtml" />
+    <Content Include="Areas\Administration\Views\Shared\DisplayTemplates\PhotoViewModel.cshtml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
     <Content Include="Scripts\jquery-1.10.2.min.js" />
@@ -347,7 +349,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Areas\Administration\Models\" />
     <Folder Include="Areas\Administration\Views\Contest\" />
     <Folder Include="Areas\Administration\Views\Photo\" />
     <Folder Include="Areas\Administration\Views\User\" />

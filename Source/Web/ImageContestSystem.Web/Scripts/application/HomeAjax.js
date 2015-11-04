@@ -36,3 +36,7 @@ $("#vote-photo").click(function() {
         }
     });
 });
+
+$("#noty-btn").click(function() {
+    $(this).closest("div").parent().hide();
+});

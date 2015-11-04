@@ -1,5 +1,6 @@
 ﻿namespace ImageContestSystem.Web.Controllers
 {
+    using System;
     using Models.ViewModels;
     using Microsoft.AspNet.Identity;
     using System.Linq;
@@ -26,7 +27,7 @@
             contest.Participants.Add(loggedUser);
             this.Data.SaveChanges();
 
-            return RedirectToAction("Index", "Contest");
+            return RedirectToAction("Index", "MyContests");
         }
 
         [Authorize]
@@ -63,6 +64,7 @@
              
             {
                 Text = text,
+                DateSent = DateTime.Now,
                 ReceiverId = model.UserId,
                 Receiver = invitedUser,
                 SenderId = loggedUserId,

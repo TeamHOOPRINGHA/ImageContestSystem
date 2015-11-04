@@ -15,7 +15,7 @@ $("#user-search-field").keyup(function (input) {
         var username = $(input.target).val();
         var contestId = $("#user-search-contestId").val();
         console.log(contestId);
-        $.get("/Users/SearchUsers/?username=" + username + "&contestId=" + contestId, function (result) {
+        $.get("/User/SearchUser/?username=" + username + "&contestId=" + contestId, function (result) {
             $("#user-search-result").html(result);
         });
     }

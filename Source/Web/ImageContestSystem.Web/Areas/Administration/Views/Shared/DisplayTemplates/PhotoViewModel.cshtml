@@ -1,0 +1,29 @@
+﻿@model ImageContestSystem.Web.Models.ViewModels.PhotoViewModel
+
+<div class="col-md-6">
+    <img src="@Model.Location" class="img-responsive" alt="No preview available" id="imageresource" />
+
+    <div class="row">
+        <div class="col-sm-4">
+            By: @Model.Author
+        </div>
+        <div class="col-sm-4">
+            Votes : @Model.Votes
+        </div>
+        <div class="col-sm-4">
+            Contest: @Model
+        </div>
+        @if (Model.IsDeleted == false)
+        {
+            <div class="col-sm-4">
+                @Html.ActionLink("Delete", "Remove", "Photo", new { Id = Model.Id }, new { @class = "btn btn-info btn-sm" })
+            </div>
+        }
+        else
+        {
+            <p style="color: red"><strong>Deleted.</strong></p>
+        }
+    </div>
+
+    <hr />
+</div>

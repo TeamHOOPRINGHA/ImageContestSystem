@@ -135,6 +135,7 @@
             var model = new BrowseNotificationsViewModel
             {
                 Notifications = this.Data.Notifications.All()
+                    .OrderByDescending(n => n.DateSent)
                     .Where(n => n.ReceiverId == loggedUserId)
                     .Select(NotificationViewModel.Create)
                     .ToList()

@@ -19,5 +19,8 @@
 
         [DefaultValue(0)]
         public int Votes { get; set; }
+
+        [DefaultValue(false)]
+        public bool IsDeleted { get; set; }
     }
 }

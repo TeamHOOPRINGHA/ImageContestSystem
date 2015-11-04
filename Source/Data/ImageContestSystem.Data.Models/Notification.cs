@@ -1,5 +1,6 @@
 ﻿namespace ImageContestSystem.Data.Models
 {
+    using System;
     using System.ComponentModel;
     using System.ComponentModel.DataAnnotations;
 
@@ -9,6 +10,8 @@
 
         [Required]
         public string Text { get; set; }
+
+        public DateTime DateSent { get; set; }
 
         [DefaultValue(false)]
         public bool IsRead { get; set; }
