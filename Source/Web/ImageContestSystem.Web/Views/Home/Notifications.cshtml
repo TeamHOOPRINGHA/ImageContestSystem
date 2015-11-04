@@ -1,0 +1,28 @@
+﻿@using ImageContestSystem.Web.Models.ViewModels
+@model BrowseNotificationsViewModel
+
+@{
+    ViewBag.Title = "Notifications";
+}
+
+<div class="jumbotron">
+    <h1>Image contest system</h1>
+</div>
+<div class="container">
+    <div class="row">
+        <div class="col-md-3">
+            <div>
+                @Html.Partial("_UserAsideMenu")
+            </div>
+        </div>
+
+        <div class="col-md-8" id="main-content">
+            <div class="row">
+                @foreach (var notification in Model.Notifications)
+                {
+                    @Html.DisplayFor(n => notification)
+                }
+            </div>
+        </div>
+    </div>
+</div>

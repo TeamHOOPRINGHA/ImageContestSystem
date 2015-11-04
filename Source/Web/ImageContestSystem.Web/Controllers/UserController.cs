@@ -7,6 +7,7 @@
     using System.Web;
     using System.Net;
     using AutoMapper.QueryableExtensions;
+    using ImageContestSystem.Data.Models;
 
     public class UserController : BaseController
     {
@@ -45,21 +46,31 @@
                 throw new HttpException();
             }
 
-            var invitedUser = this.Data.Users.All().FirstOrDefault(u => u.Id == model.UserId);
-            if (invitedUser == null)
+            if (contest.Invited.Any(p => p.Id == model.UserId) || contest.Participants.Any(p => p.Id == loggedUserId))
             {
-                throw new HttpException();
+                return this.Content("User already invited", "text/html");
             }
 
-            if (contest.Participants.Contains(invitedUser))
-            {
-                var failMessage = string.Format("User {0} already invited", invitedUser.UserName);
-                return this.Content(failMessage, "text/html");
-            }
+            var invitedUser = this.Data.Users.Find(model.UserId);
+            var loggedUser = this.Data.Users.Find(loggedUserId);
 
-            invitedUser.ParticipatedIn.Add(contest);
-            contest.Participants.Add(invitedUser);
-            this.Data.SaveChanges();
+            invitedUser.InvitedContests.Add(contest);
+            contest.Invited.Add(invitedUser);
+
+            var text = string.Format("Hello, {0}, I'd like you to join the contest {1}", invitedUser.UserName, contest.Title);
+
+            var notification = new Notification
+             
+            {
+                Text = text,
+                ReceiverId = model.UserId,
+                Receiver = invitedUser,
+                SenderId = loggedUserId,
+                Sender = loggedUser
+            };
+
+            this.Data.Notifications.Add(notification);
+            this.Data.SaveChanges(); 
 
             var message = string.Format("Invitation to {0} sent", invitedUser.UserName);
 
