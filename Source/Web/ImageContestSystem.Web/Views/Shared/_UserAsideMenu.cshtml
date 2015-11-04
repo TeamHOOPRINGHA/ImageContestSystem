@@ -1,24 +1,37 @@
-﻿<div id="sidebar" class="well sidebar-nav">
-    <ul class="nav nav-pills nav-stacked">
+﻿
+<div id="sidebar" class="well sidebar-nav">
+    <div class="navbar-collapse collapse">
         @if (Request.IsAuthenticated)
         {
-            <li>@Html.ActionLink("My Contests", "MyContests", "Home")</li>
-            <li>@Html.ActionLink("My Photos", "MyPhotos", "Home")</li>
-            <li>@Html.ActionLink("Create a contest", "Add", "Contest")</li>
-            <li>@Html.ActionLink("Contests I Participate In", "", "")</li>
-            <li>@Html.ActionLink("Active Contests", "ViewAll", "Contest")</li>
+            <ul class="nav nav-tabs">
+                <li class="dropdown">
+                    <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+                        Contests
+                        <span class="caret"></span>
+                    </a>
+                    <ul class="dropdown-menu">
+                        <li>@Html.ActionLink("My contests", "MyContests", "Home")</li>
+                        <li>@Html.ActionLink("Contests in which participating", "", "")</li>
+                        <li>@Html.ActionLink("Active contests", "ViewAll", "Contest")</li>
+                    </ul>
+                </li>
+                <li>@Html.ActionLink("Create a contest", "Add", "Contest")</li>
+                <li>@Html.ActionLink("My photos", "MyPhotos", "Home")</li>
+            </ul>
         }
         else
         {
-            <li>
-                @Html.ActionLink("Active Contests", "ViewAll", "Contest", null,
+            <ul class="nav nav-tabs">
+                <li>
+                    @Html.ActionLink("Active contests", "ViewAll", "Contest", null,
                             new { title = "Go to contests" })
-            </li>
-            <li>
-                @Html.ActionLink("Past Contests", "ViewPast", "Contest", null,
+                </li>
+                <li>
+                    @Html.ActionLink("Past contests", "ViewPast", "Contest", null,
                             new { title = "Go to contests" })
-            </li>
-            <li></li>
-        }
-    </ul>
+                </li>
+                <li></li>
+           </ul>
+      }
+</div>
 </div>
