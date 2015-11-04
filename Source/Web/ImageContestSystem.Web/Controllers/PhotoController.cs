@@ -14,6 +14,51 @@
     public class PhotoController : BaseController
     {
         [Authorize]
+        public JsonResult Vote(int photoId)
+        {
+            var loggedUserId = this.User.Identity.GetUserId();
+            var loggedUser = this.Data.Users.Find(loggedUserId);
+            var photo = this.Data.Pictures.Find(photoId);
+            
+            if (photo.AuthorId == loggedUserId)
+            {
+                return this.Json(new
+                {
+                    result = "fail",
+                    message = "You cannot vote for your own photo"
+                }, JsonRequestBehavior.AllowGet);
+            }
+
+            if (photo.Votes.Any(v => v.VoterId == loggedUserId))
+            {
+                return this.Json(new
+                {
+                    result = "fail",
+                    message = "Already voted for that photo"
+                }, JsonRequestBehavior.AllowGet);
+            }
+
+            var vote = new Vote
+            {
+                VotedOn = DateTime.Now,
+                Voter = loggedUser,
+                Picture = photo
+            };
+
+            photo.Votes.Add(vote);
+            var contest = this.Data.Contests.Find(photo.ContestId);
+            var leaderId = contest.Pictures
+                .OrderByDescending(p => p.Votes.Count)
+                .Take(1)
+                .Select(p => p.AuthorId)
+                .FirstOrDefault();
+            contest.CurrentLeader = this.Data.Users.Find(leaderId);
+            this.Data.SaveChanges();
+
+            return this.Json(new { result = "success" }, JsonRequestBehavior.AllowGet);
+        }
+
+        [Authorize]
         [HttpPost]
         public async Task<ActionResult> Create(int contestId, HttpPostedFileBase file)
         {
@@ -43,7 +88,7 @@
             contest.Pictures.Add(photo);
             this.Data.SaveChanges();
  
-            return RedirectToAction("Index", "Contest");
+            return RedirectToAction("View", "Contest", new { id = contest.Id});
         }
 
         private async Task<CloudBlockBlob> UploadBlobAsync(HttpPostedFileBase imageFile)

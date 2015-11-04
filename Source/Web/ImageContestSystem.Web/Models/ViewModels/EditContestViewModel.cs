@@ -4,6 +4,7 @@
     using ImageContestSystem.Data.Models.Enums;
     using System;
     using System.Collections.Generic;
+    using System.ComponentModel.DataAnnotations;
     using System.Linq;
     using System.Linq.Expressions;
     using System.Web;
@@ -12,6 +13,8 @@
     {
         public int Id { get; set; }
 
+        [Required(ErrorMessage = "Description is required")]
+        [StringLength(100, ErrorMessage = "Description length should be less than 100")]
         public string Description { get; set; }
 
         public DateTime? ClosesOn { get; set; }

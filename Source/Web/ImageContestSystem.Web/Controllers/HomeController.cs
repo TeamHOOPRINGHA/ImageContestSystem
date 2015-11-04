@@ -10,7 +10,7 @@
 
     public class HomeController : BaseController
     {
-        public ActionResult Index(int id = 1, int pageSize = 3)
+        public ActionResult Index(int id = 1, int pageSize = 5)
         {
             var loggedUserId = this.User.Identity.GetUserId();
 
@@ -22,25 +22,31 @@
 
                 var paged = new HomeViewModel
                 {
-                    PageCount = contests.Count / pageSize,
+                    PageCount = contests.Count % pageSize == 0
+                            ? contests.Count / pageSize
+                            : contests.Count / pageSize + 1,
                     PageSize = pageSize,
                     CurrentPage = id,
                     Contests = contests
                         .OrderByDescending(c => c.CreatedOn)
                         .Skip((id - 1) * pageSize)
                         .Take(pageSize)
-                        .Select(c => new ContestParticipantViewModel()
+                        .Select(c => new ContestParticipantViewModel
                         {
                             Id = c.Id,
                             Title = c.Title,
                             Creator = c.Creator.UserName,
+                            CurrentLeader = c.CurrentLeader == null ? "No leader yet" : c.CurrentLeader.UserName,
                             Pictures = c.Pictures
                                 .Take(4)
                                 .Select(p => new PhotoViewModel()
                                 {
+                                    Id = p.Id,
                                     Author = p.Author.UserName,
                                     ContestId = c.Id,
-                                    Location = p.LocationPath
+                                    Location = p.LocationPath,
+                                    Votes = p.Votes.Count,
+                                    HasVoted = p.Votes.Any(v => v.VoterId == loggedUserId)
                                 })
                                 .ToList()
                         }).ToList()
@@ -52,24 +58,34 @@
 
             var contestsForAnonymUser = this.Data.Contests.All()
                 .OrderByDescending(c => c.CreatedOn)
-                .Take(pageSize)
                 .ToList();
 
 
-            var result = new HomeViewModel()
+            var result = new HomeViewModel
             {
+                PageCount = contestsForAnonymUser.Count % pageSize == 0
+                            ? contestsForAnonymUser.Count / pageSize
+                            : contestsForAnonymUser.Count / pageSize + 1,
+                PageSize = pageSize,
+                CurrentPage = id,
                 Contests = contestsForAnonymUser
-                    .Select(c => new ContestParticipantViewModel()
+                    .Skip((id - 1) * pageSize)
+                    .Take(pageSize)
+                    .Select(c => new ContestParticipantViewModel
                     {
                         Title = c.Title,
+                        CurrentLeader = c.CurrentLeader == null ? "No leader yet" : c.CurrentLeader.UserName,
                         Pictures = c.Pictures
                             .Take(4)
-                            .Select(p => new PhotoViewModel()
+                            .Select(p => new PhotoViewModel
                             {
-                                Location = p.LocationPath
+                                Id = p.Id,
+                                Location = p.LocationPath,
+                                Author = p.Author.UserName,
+                                Votes = p.Votes.Count
                             }).ToList(),
                         Description = c.Description
-                    })
+                    }).ToList()
             };
 
             return View(result);
@@ -101,8 +117,11 @@
                 .Take(10)
                 .Select(p => new PhotoViewModel
                 {
+                    Id = p.Id,
                     Location = p.LocationPath,
-                    Author = p.Author.UserName
+                    Author = p.Author.UserName,
+                    HasVoted = p.Votes.Any(v => v.VoterId == loggedUserId),
+                    Votes = p.Votes.Count
                 })
                 .ToList();
 

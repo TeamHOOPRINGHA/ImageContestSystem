@@ -32,6 +32,10 @@
 
         public virtual User Creator { get; set; }
 
+        public string CurrentLeaderId { get; set; }
+
+        public virtual User CurrentLeader { get; set; }
+
         public string WinnerId { get; set; }
 
         public virtual User Winner { get; set; }

@@ -12,69 +12,11 @@
 
     public class ContestController : BaseController
     {
-        public ActionResult Index()
-        {
-            var loggedUserId = User.Identity.GetUserId();
-            var user = this.Data.Users.All().FirstOrDefault(u => u.Id == loggedUserId);
-
-            var contests = this.Data.Contests
-                .All()
-                .Where(c => c.ClosesOn > DateTime.Now)
-                .OrderByDescending(c => c.CreatedOn)
-                .Take(5);
-
-            if (user == null)
-            {
-                var output = contests
-                    .Select(c => new ContestViewModel()
-                    {
-                        Id = c.Id,
-                        Title = c.Title,
-                        Description = c.Description
-                    }).ToList();
-
-                return View("ViewAllByAnonymous", output);
-            }
-            else
-            {
-                var output = contests
-                    .Select(c => new ContestViewModel()
-                    {
-                        Id = c.Id,
-                        Title = c.Title,
-                        Description = c.Description,
-                        CountOfParticipants = c.Participants.Count,
-                        ClosesOn = c.ClosesOn,
-                        NumberOfAllowedParticipants = c.NumberOfAllowedParticipants,
-                        ParticipationStrategy = c.ParticipationStrategy,
-                        HasParticipated = c.Participants.Any(p => p.Id == loggedUserId)
-                    }).ToList();
-
-                return View("ViewAllByAuthorized", output);
-            }
-        }
-
         [HttpGet]
         [Authorize]
         public ActionResult Add()
         {
             return View();
-        }
-
-        [Authorize]
-        public ActionResult Dismiss(int id)
-        {
-            var contest = this.Data.Contests.All().Where(c => c.Id == id).FirstOrDefault();
-
-            if (contest == null)
-            {
-                return new HttpNotFoundResult("Contest not found.");
-            }
-
-            contest.IsDismissed = true;
-            this.Data.SaveChanges();
-
-            return RedirectToAction("Index", "Home");
         }
 
         [HttpPost]
@@ -115,10 +57,26 @@
                 this.Data.SaveChanges();
                 this.TempData["SuccessMessage"] = "Contest successfully created!";
 
-                return RedirectToAction("Index", "Contest");
+                return RedirectToAction("MyContests", "Home");
             }
             
             return View();
+        }
+
+        [Authorize]
+        public ActionResult Dismiss(int id)
+        {
+            var contest = this.Data.Contests.All().Where(c => c.Id == id).FirstOrDefault();
+
+            if (contest == null)
+            {
+                return new HttpNotFoundResult("Contest not found.");
+            }
+
+            contest.IsDismissed = true;
+            this.Data.SaveChanges();
+
+            return RedirectToAction("Index", "Home");
         }
 
         public ActionResult View(int id)
@@ -129,7 +87,7 @@
                 
             if (loggedUserId != null && contest.Participants.Any(p => p.Id == loggedUserId))
             {
-                var contestToReturn = new ContestParticipantViewModel()
+                var contestToReturn = new ContestParticipantViewModel
                 {
                     Id = contest.Id,
                     Title = contest.Title,
@@ -139,8 +97,10 @@
                     ClosesOn = contest.ClosesOn,
                     Pictures = contest.Pictures.Take(10).Select(p => new PhotoViewModel
                     {
+                        Id = p.Id,
                         Author = p.Author.UserName,
-                        Location = p.LocationPath
+                        Location = p.LocationPath,
+                        Votes = p.Votes.Count
                     }).ToList(),
                     HasAddedPhoto = contest.Pictures.Any(p => p.AuthorId == loggedUserId)
                 };
@@ -165,6 +125,42 @@
             }
 
             return View("ViewByAnonymous", searchedContest);
+        }
+
+        
+        [Authorize]
+        public ActionResult ViewAll(int id = 1, int pageSize = 5)
+        {
+            var loggedUserId = User.Identity.GetUserId();
+            
+            var contests = this.Data.Contests.All()
+                .Where(c => c.ClosesOn > DateTime.Now && c.Participants.Count(p => p.Id == loggedUserId) == 0)
+                .ToList();
+
+            var model = new BrowseContestsViewModel
+            {
+                CurrentPage = id,
+                PageSize = pageSize,
+                PageCount = contests.Count % pageSize == 0
+                        ? contests.Count / pageSize
+                        : contests.Count / pageSize + 1,
+                Contests = contests.OrderByDescending(c => c.CreatedOn)
+                    .Skip((id - 1) * pageSize)
+                    .Take(pageSize)
+                    .Select(c => new ContestViewModel()
+                    {
+                        Id = c.Id,
+                        Title = c.Title,
+                        Description = c.Description,
+                        CountOfParticipants = c.Participants.Count,
+                        ClosesOn = c.ClosesOn,
+                        NumberOfAllowedParticipants = c.NumberOfAllowedParticipants,
+                        ParticipationStrategy = c.ParticipationStrategy,
+                        HasParticipated = c.Participants.Any(p => p.Id == loggedUserId)
+                    }).ToList()
+            };
+            
+            return View(model);
         }
 
         public ActionResult ViewPast()
@@ -215,8 +211,8 @@
             
             editedContest.VotingStrategy = model.VotingStrategy;
             this.Data.SaveChanges();
- 
-            return RedirectToAction("MyContests", "User");
+
+            return RedirectToAction("MyContests", "Home");
         }
     }
 }

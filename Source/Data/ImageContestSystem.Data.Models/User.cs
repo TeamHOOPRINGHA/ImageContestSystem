@@ -13,6 +13,7 @@
         private ICollection<Contest> createdContests;
         private ICollection<Contest> evaluatedContests;
         private ICollection<Contest> wonContests;
+        private ICollection<Contest> leadingContests; 
         private ICollection<Picture> uploadedPictures;
         private ICollection<Vote> votes;
 
@@ -22,6 +23,7 @@
             this.createdContests = new HashSet<Contest>();
             this.evaluatedContests = new HashSet<Contest>();
             this.uploadedPictures = new HashSet<Picture>();
+            this.leadingContests = new HashSet<Contest>();
             this.votes = new HashSet<Vote>();
             this.wonContests = new HashSet<Contest>();
         }
@@ -45,6 +47,12 @@
             get { return this.createdContests; }
             set { this.createdContests = value; }
         }
+
+        public virtual ICollection<Contest> LeadingContests
+        {
+            get { return this.leadingContests; }
+            set { this.leadingContests = value; }
+        } 
 
         public virtual ICollection<Contest> EvaluatedContests
         {

@@ -1,0 +1,14 @@
+﻿@using ImageContestSystem.Web.Models.ViewModels
+@model ContestViewModel
+
+<div><strong>Title: </strong>@Model.Title</div>
+<div><strong>Description: </strong>@Model.Description </div>
+<div><strong>Count of participants: </strong>@Model.CountOfParticipants</div>
+<div><strong>Number of Allowed participants: </strong>@Model.NumberOfAllowedParticipants </div>
+<div><strong>Closes on: </strong>@Model.ClosesOn</div>
+<div><strong>Participation Strategy: </strong>@Model.ParticipationStrategy</div>
+
+@if (Model.ParticipationStrategy == 0 && !Model.HasParticipated)
+{
+    @Html.ActionLink("Participate", "ApplyToContest", "User", new { Id = Model.Id }, new { @class = "btn btn-primary", title = "Participate" })
+}

@@ -4,18 +4,21 @@
         {
             <li>@Html.ActionLink("My Contests", "MyContests", "Home")</li>
             <li>@Html.ActionLink("My Photos", "MyPhotos", "Home")</li>
-            <li>@Html.ActionLink("Add contest", "Add", "Contest")</li>
+            <li>@Html.ActionLink("Create a contest", "Add", "Contest")</li>
+            <li>@Html.ActionLink("Contests I Participate In", "", "")</li>
+            <li>@Html.ActionLink("Active Contests", "ViewAll", "Contest")</li>
         }
         else
         {
             <li>
-                @Html.ActionLink("Active Contests", "Index", "Contest", null,
+                @Html.ActionLink("Active Contests", "ViewAll", "Contest", null,
                             new { title = "Go to contests" })
             </li>
             <li>
                 @Html.ActionLink("Past Contests", "ViewPast", "Contest", null,
                             new { title = "Go to contests" })
             </li>
+            <li></li>
         }
     </ul>
 </div>

@@ -216,6 +216,7 @@
     <Compile Include="Infrastructure\Mapping\IMapFrom.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
+    <Compile Include="Models\ViewModels\BrowseContestsViewModel.cs" />
     <Compile Include="Models\ViewModels\ContestParticipantViewModel.cs" />
     <Compile Include="Models\ViewModels\ContestViewModel.cs" />
     <Compile Include="Models\ViewModels\EditContestViewModel.cs" />
@@ -324,7 +325,7 @@
     <Content Include="Views\Contest\ViewByAuthorized.cshtml" />
     <Content Include="Views\Contest\ViewByParticipant.cshtml" />
     <Content Include="Views\Contest\_AddPhoto.cshtml" />
-    <Content Include="Views\User\_UserAsideMenu.cshtml" />
+    <Content Include="Views\Shared\_UserAsideMenu.cshtml" />
     <Content Include="Views\User\ViewAll.cshtml" />
     <Content Include="Views\Photo\ViewAll.cshtml" />
     <Content Include="Views\User\_ViewUser.cshtml" />
@@ -333,8 +334,11 @@
     <Content Include="Views\Shared\_UserSearchPartial.cshtml" />
     <Content Include="Views\Shared\_EditContest.cshtml" />
     <Content Include="Views\Home\_HomeContent.cshtml" />
-    <Content Include="Views\Home\_UserAsideMenu.cshtml" />
     <Content Include="Views\Home\MyPhotos.cshtml" />
+    <Content Include="Views\Shared\DisplayTemplates\ContestParticipantViewModel.cshtml" />
+    <Content Include="Views\Shared\DisplayTemplates\ContestViewModel.cshtml" />
+    <Content Include="Views\Shared\DisplayTemplates\PhotoViewModel.cshtml" />
+    <Content Include="Views\Contest\ViewAll.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -342,7 +346,6 @@
     <Folder Include="Areas\Administration\Views\Contest\" />
     <Folder Include="Areas\Administration\Views\Photo\" />
     <Folder Include="Areas\Administration\Views\User\" />
-    <Folder Include="Views\Shared\DisplayTemplates\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />
