@@ -127,5 +127,21 @@
 
             return View(myPhotos);
          }
+
+        [Authorize]
+        public ActionResult Notifications()
+        {
+            var loggedUserId = this.User.Identity.GetUserId();
+
+            var model = new BrowseNotificationsViewModel
+            {
+                Notifications = this.Data.Notifications.All()
+                    .Where(n => n.ReceiverId == loggedUserId)
+                    .Select(NotificationViewModel.Create)
+                    .ToList()
+            };
+
+            return this.View(model);
+        }
     }
 }

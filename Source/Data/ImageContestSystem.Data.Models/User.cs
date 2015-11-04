@@ -13,8 +13,12 @@
         private ICollection<Contest> createdContests;
         private ICollection<Contest> evaluatedContests;
         private ICollection<Contest> wonContests;
-        private ICollection<Contest> leadingContests; 
+        private ICollection<Contest> leadingContests;
+        private ICollection<Contest> invitedContests;
+        private ICollection<Contest> declinedContests;
         private ICollection<Picture> uploadedPictures;
+        private ICollection<Notification> receivedNotifications;
+        private ICollection<Notification> sentNotifications; 
         private ICollection<Vote> votes;
 
         public User()
@@ -24,6 +28,10 @@
             this.evaluatedContests = new HashSet<Contest>();
             this.uploadedPictures = new HashSet<Picture>();
             this.leadingContests = new HashSet<Contest>();
+            this.invitedContests = new HashSet<Contest>();
+            this.declinedContests = new HashSet<Contest>();
+            this.receivedNotifications = new HashSet<Notification>();
+            this.sentNotifications = new HashSet<Notification>();
             this.votes = new HashSet<Vote>();
             this.wonContests = new HashSet<Contest>();
         }
@@ -72,11 +80,34 @@
             set { this.votes = value; }
         }
 
+        public virtual ICollection<Notification> SentNotifications
+        {
+            get { return this.sentNotifications; }
+            set { this.sentNotifications = value; }
+        }
+
+        public virtual ICollection<Notification> ReceivedNotifications
+        {
+            get { return this.receivedNotifications; }
+            set { this.receivedNotifications = value; }
+        }
+
+        public virtual ICollection<Contest> InvitedContests
+        {
+            get { return this.invitedContests; }
+            set { this.invitedContests = value; }
+        }
+
+        public virtual ICollection<Contest> DeclinedContests
+        {
+            get { return this.declinedContests; }
+            set { this.declinedContests = value; }
+        }
+
         public async Task<ClaimsIdentity> GenerateUserIdentityAsync(UserManager<User> manager)
         {
-            // Note the authenticationType must match the one defined in CookieAuthenticationOptions.AuthenticationType
             var userIdentity = await manager.CreateIdentityAsync(this, DefaultAuthenticationTypes.ApplicationCookie);
-            // Add custom user claims here
+
             return userIdentity;
         }
     }

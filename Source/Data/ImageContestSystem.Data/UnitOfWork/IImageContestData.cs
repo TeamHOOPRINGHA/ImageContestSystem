@@ -13,6 +13,8 @@
 
         IRepository<Vote> Votes { get; }
 
+        IRepository<Notification> Notifications { get; }
+
         int SaveChanges();
     }
 }

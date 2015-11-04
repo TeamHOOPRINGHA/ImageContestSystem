@@ -19,6 +19,8 @@ namespace ImageContestSystem.Data
 
         public virtual IDbSet<Vote> Votes { get; set; }
 
+        public virtual IDbSet<Notification> Notification { get; set; } 
+
         public static ImageContestSystemDbContext Create()
         {
             return new ImageContestSystemDbContext();
@@ -47,8 +49,38 @@ namespace ImageContestSystem.Data
                 });
 
             modelBuilder.Entity<Contest>()
+                .HasMany(c => c.Invited)
+                .WithMany(u => u.InvitedContests)
+                .Map(m =>
+                {
+                    m.MapLeftKey("ContestId");
+                    m.MapRightKey("InvitedId");
+                    m.ToTable("Contests_Invitations");
+                });
+
+            modelBuilder.Entity<Contest>()
+                .HasMany(c => c.Declined)
+                .WithMany(u => u.DeclinedContests)
+                .Map(m =>
+                {
+                    m.MapLeftKey("ContestId");
+                    m.MapRightKey("DeclinedId");
+                    m.ToTable("Contests_Declined");
+                });
+
+            modelBuilder.Entity<Contest>()
                 .HasMany(c => c.Pictures)
                 .WithRequired(p => p.Contest)
+                .WillCascadeOnDelete(false);
+
+            modelBuilder.Entity<User>()
+                .HasMany(u => u.ReceivedNotifications)
+                .WithOptional(n => n.Receiver)
+                .WillCascadeOnDelete(false);
+
+            modelBuilder.Entity<User>()
+                .HasMany(u => u.SentNotifications)
+                .WithOptional(n => n.Sender)
                 .WillCascadeOnDelete(false);
 
             modelBuilder.Entity<User>()

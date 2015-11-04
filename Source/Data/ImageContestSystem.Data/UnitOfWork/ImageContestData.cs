@@ -8,8 +8,8 @@
 
     public class ImageContestData : IImageContestData
     {
-        private DbContext context;
-        private IDictionary<Type, object> repositories;
+        private readonly DbContext context;
+        private readonly IDictionary<Type, object> repositories;
 
         public ImageContestData(DbContext context)
         {
@@ -35,6 +35,11 @@
         public IRepository<Vote> Votes
         {
             get { return this.GetRepository<Vote>(); }
+        }
+
+        public IRepository<Notification> Notifications
+        {
+            get { return this.GetRepository<Notification>(); }
         }
 
         public int SaveChanges()
