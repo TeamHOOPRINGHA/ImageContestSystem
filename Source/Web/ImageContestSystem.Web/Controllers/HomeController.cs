@@ -7,9 +7,15 @@
     using Microsoft.AspNet.Identity;
     using ImageContestSystem.Web.Models.ViewModels;
     using AutoMapper.QueryableExtensions;
+    using ImageContestSystem.Data.UnitOfWork;
 
     public class HomeController : BaseController
     {
+        public HomeController(IImageContestData data)
+            : base(data)
+        {
+        }
+
         public ActionResult Index(int id = 1, int pageSize = 5)
         {
             var loggedUserId = this.User.Identity.GetUserId();

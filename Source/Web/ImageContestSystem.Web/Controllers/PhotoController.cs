@@ -10,9 +10,15 @@
     using Microsoft.AspNet.Identity;
     using Data.Models;
     using Models.ViewModels;
+    using ImageContestSystem.Data.UnitOfWork;
 
     public class PhotoController : BaseController
     {
+        public PhotoController(IImageContestData data)
+            : base(data)
+        {
+        }
+
         [Authorize]
         public JsonResult Vote(int photoId)
         {

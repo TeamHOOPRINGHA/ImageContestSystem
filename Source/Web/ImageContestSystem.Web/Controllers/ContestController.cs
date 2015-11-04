@@ -9,9 +9,15 @@
     using AutoMapper.QueryableExtensions;
     using System.Net;
     using System.Web;
+    using ImageContestSystem.Data.UnitOfWork;
 
     public class ContestController : BaseController
     {
+        public ContestController(IImageContestData data)
+            : base(data)
+        {
+        }
+
         [HttpGet]
         [Authorize]
         public ActionResult Add()

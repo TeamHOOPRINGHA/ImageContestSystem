@@ -20,16 +20,40 @@
                 @Html.ActionLink("Image contest system", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
             </div>
             <div class="navbar-collapse collapse">
-                <ul class="nav navbar-nav">
+                <ul class="nav nav-tabs navbar-nav">
                     <li>@Html.ActionLink("Home", "Index", "Home")</li>
-                    @if (User.Identity.IsAuthenticated)
-                    {
-                        <li>@Html.ActionLink("Contests", "Index", "Contest", routeValues: null, htmlAttributes: new { title = "Browse existing contests" })</li>
-                        <li>@Html.ActionLink("Profile", "ViewProfile", "User", routeValues: null, htmlAttributes: new { title = "Your profile" })</li>
-                    }
                     @if (User.IsInRole("Administrator"))
                     {
                         <li>@Html.ActionLink("Admin", "Index", "Home", new { Area = "Administration" }, null)</li>
+                    }
+                    
+                    @if (Request.IsAuthenticated)
+                    {
+                        <li class="dropdown">
+                            <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+                                Contests
+                                <span class="caret"></span>
+                            </a>
+                            <ul class="dropdown-menu">
+                                <li>@Html.ActionLink("My contests", "MyContests", "Home")</li>
+                                <li>@Html.ActionLink("Contests in which participating", "", "")</li>
+                                <li>@Html.ActionLink("Active contests", "ViewAll", "Contest")</li>
+                            </ul>
+                        </li>
+                        <li>@Html.ActionLink("Create a contest", "Add", "Contest")</li>
+                        <li>@Html.ActionLink("My photos", "MyPhotos", "Home")</li>
+                        <li>@Html.ActionLink("My notifications", "Notifications", "Home")</li>
+                    }
+                    else
+                    {
+                        <li>
+                            @Html.ActionLink("Active contests", "ViewAll", "Contest", null,
+                            new { title = "Go to contests" })
+                        </li>
+                        <li>
+                            @Html.ActionLink("Past contests", "ViewPast", "Contest", null,
+                            new { title = "Go to contests" })
+                        </li>
                     }
                 </ul>
                 @Html.Partial("_LoginPartial")

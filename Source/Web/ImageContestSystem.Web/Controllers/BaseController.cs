@@ -11,11 +11,6 @@
     {
         protected static CloudBlobContainer imagesContainer;
 
-        public BaseController()
-            :this(new ImageContestData(new ImageContestSystemDbContext()))
-        {          
-        }
-
         public BaseController(IImageContestData data)
         {
             this.Data = data;

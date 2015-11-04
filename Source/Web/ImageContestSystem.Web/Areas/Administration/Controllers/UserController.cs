@@ -8,10 +8,16 @@
     using ImageContestSystem.Web.Controllers;
     using ImageContestSystem.Web.Models.ViewModels;
     using Models;
+    using ImageContestSystem.Data.UnitOfWork;
 
     [Authorize(Roles = "Administrator")]
     public class UserController : BaseController
     {
+        public UserController(IImageContestData data)
+            : base(data)
+        {
+        }
+
         public ActionResult Get()
         {
             var users = this.Data.Users.All()

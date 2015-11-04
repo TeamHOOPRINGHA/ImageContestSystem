@@ -6,10 +6,16 @@
     using AutoMapper.QueryableExtensions;
     using ImageContestSystem.Web.Controllers;
     using ImageContestSystem.Web.Models.ViewModels;
+    using ImageContestSystem.Data.UnitOfWork;
 
     [Authorize(Roles = "Administrator")]
     public class ContestController : BaseController
     {
+        public ContestController(IImageContestData data)
+            : base(data)
+        {
+        }
+
         public ActionResult Get()
         {
             var contests = this.Data.Contests.All()

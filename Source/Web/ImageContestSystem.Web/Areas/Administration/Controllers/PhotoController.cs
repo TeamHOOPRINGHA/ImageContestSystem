@@ -7,10 +7,16 @@
     using System.Web.Mvc;
     using ImageContestSystem.Web.Controllers;
     using ImageContestSystem.Web.Models.ViewModels;
+    using ImageContestSystem.Data.UnitOfWork;
 
     [Authorize(Roles = "Administrator")]
     public class PhotoController : BaseController
     {
+        public PhotoController(IImageContestData data)
+            : base(data)
+        {
+        }
+
         public ActionResult Get()
         {
             var photos = this.Data.Pictures.All()

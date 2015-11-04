@@ -9,9 +9,15 @@
     using System.Net;
     using AutoMapper.QueryableExtensions;
     using ImageContestSystem.Data.Models;
+    using ImageContestSystem.Data.UnitOfWork;
 
     public class UserController : BaseController
     {
+        public UserController(IImageContestData data)
+            : base(data)
+        {
+        }
+
         [Authorize]
         public ActionResult ApplyToContest(int id)
         {
