@@ -11,6 +11,7 @@
     using ImageContestSystem.Web.Models;
     using ImageContestSystem.Data.Models;
     using Data;
+    using Microsoft.Owin.Security.Google;
 
     public partial class Startup
     {
@@ -49,23 +50,23 @@
             app.UseTwoFactorRememberBrowserCookie(DefaultAuthenticationTypes.TwoFactorRememberBrowserCookie);
 
             // Uncomment the following lines to enable logging in with third party login providers
-            //app.UseMicrosoftAccountAuthentication(
-            //    clientId: "",
-            //    clientSecret: "");
+            app.UseMicrosoftAccountAuthentication(
+                clientId: "000000004C16D4DE",
+                clientSecret: "aBdIpMHGlSzlpweTDm8MvnhFYvEjbCtj");
 
             //app.UseTwitterAuthentication(
             //   consumerKey: "",
             //   consumerSecret: "");
 
-            //app.UseFacebookAuthentication(
-            //   appId: "",
-            //   appSecret: "");
+            app.UseFacebookAuthentication(
+               appId: "1672083839745520",
+               appSecret: "bd4e481ee83e14216aa5609a2d7ead02");
 
-            //app.UseGoogleAuthentication(new GoogleOAuth2AuthenticationOptions()
-            //{
-            //    ClientId = "",
-            //    ClientSecret = ""
-            //});
+            app.UseGoogleAuthentication(new GoogleOAuth2AuthenticationOptions()
+            {
+                ClientId = "357588955040-iartvau5rv993hhb1mshtqkr8oubj5c1.apps.googleusercontent.com",
+                ClientSecret = "cb66kROZbgaZtYDCoBvzGcfb"
+            });
         }
     }
 }
