@@ -6,9 +6,17 @@
     using System;
     using System.ComponentModel.DataAnnotations;
     using AutoMapper;
+    using System.Collections.Generic;
 
     public class ContestViewModel : IHaveCustomMappings
     {
+        private ICollection<User> winners;
+        
+        public ContestViewModel()
+        {
+            this.winners = new HashSet<User>();
+        }
+
         public int Id { get; set; }
 
         [Required(ErrorMessage = "Title is required.")]
@@ -50,6 +58,12 @@
         public bool IsDismissed { get; set; }
 
         public bool IsFinalized { get; set; }
+
+        public ICollection<User> Winners
+        {
+            get { return this.winners; }
+            set { this.winners = value; }
+        }
 
         public void CreateMappings(IConfiguration configuration)
         {

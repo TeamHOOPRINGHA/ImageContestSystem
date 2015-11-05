@@ -13,6 +13,7 @@
         private ICollection<User> invited;
         private ICollection<User> declined;
         private ICollection<Picture> pictures;
+        private ICollection<User> winners;
 
         public Contest()
         {
@@ -21,6 +22,7 @@
             this.comittee = new HashSet<User>();
             this.invited = new HashSet<User>();
             this.declined = new HashSet<User>();
+            this.winners = new HashSet<User>();
         }
 
         public int Id { get; set; }
@@ -40,10 +42,6 @@
 
         public virtual User CurrentLeader { get; set; }
 
-        public string WinnerId { get; set; }
-
-        public virtual User Winner { get; set; }
-
         public DateTime CreatedOn { get; set; }
 
         public VotingStrategy VotingStrategy { get; set; }
@@ -61,6 +59,12 @@
         public bool IsDismissed { get; set; }
 
         public bool IsFinalized { get; set; }
+        
+        public virtual ICollection<User> Winners
+        {
+            get { return this.winners; }
+            set { this.winners = value; }
+        }
 
         public virtual ICollection<User> Participants
         {
