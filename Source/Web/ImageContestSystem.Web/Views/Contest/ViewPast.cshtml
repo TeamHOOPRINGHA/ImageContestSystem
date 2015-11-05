@@ -24,5 +24,9 @@
         </div>
         <div>Description: @contest.Description</div>
         <div>Participants count: @contest.CountOfParticipants</div>
+        @if(Request.IsAuthenticated)
+        {
+            <div>Winners: @string.Join(", ", contest.Winners.Select(w => w.UserName))</div>
+        }
     </div>
 }

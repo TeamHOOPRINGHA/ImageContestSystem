@@ -88,10 +88,10 @@ namespace ImageContestSystem.Data
                 .WithRequired(c => c.Creator)
                 .WillCascadeOnDelete(false);
 
-            modelBuilder.Entity<User>()
-                .HasMany(u => u.WonContests)
-                .WithOptional(c => c.Winner)
-                .WillCascadeOnDelete(false);
+            //modelBuilder.Entity<User>()
+            //    .HasMany(u => u.WonContests)
+            //    .WithOptional(c => c.Winner)
+            //    .WillCascadeOnDelete(false);
 
             modelBuilder.Entity<User>()
                 .HasMany(u => u.LeadingContests)

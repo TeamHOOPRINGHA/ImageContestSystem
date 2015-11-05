@@ -14,6 +14,8 @@
 
     public class ContestController : BaseController
     {
+        private const int NumberOfWinners = 3;
+
         public ContestController(IImageContestData data)
             : base(data)
         {
@@ -100,10 +102,19 @@
 
             //Determine winner or winners
             //If there is a single winner
+            var orderedPictures = contest.Pictures.OrderByDescending(p => p.Votes.Count);
             if (contest.RewardStrategy == RewardStrategy.SingleWinner)
             {
-                var winnerId = contest.Pictures.OrderByDescending(p => p.Votes.Count).FirstOrDefault().AuthorId;
-                contest.WinnerId = winnerId;
+                var winner = orderedPictures.FirstOrDefault().Author;
+                contest.Winners.Add(winner);
+            }
+            else
+            {
+                var winners = orderedPictures.Select(p => p.Author).Take(NumberOfWinners);
+                foreach (var winner in winners)
+                {
+                    contest.Winners.Add(winner);
+                }
             }
 
             this.Data.SaveChanges();
