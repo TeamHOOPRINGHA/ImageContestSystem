@@ -49,6 +49,8 @@
 
         public bool IsDismissed { get; set; }
 
+        public bool IsFinalized { get; set; }
+
         public void CreateMappings(IConfiguration configuration)
         {
             configuration.CreateMap<Contest, ContestViewModel>()

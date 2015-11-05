@@ -10,6 +10,7 @@
     using System.Net;
     using System.Web;
     using ImageContestSystem.Data.UnitOfWork;
+    using Data.Models.Enums;
 
     public class ContestController : BaseController
     {
@@ -85,6 +86,31 @@
             return RedirectToAction("Index", "Home");
         }
 
+        [Authorize]
+        public ActionResult Finalize(int id)
+        {
+            var contest = this.Data.Contests.All().Where(c => c.Id == id).FirstOrDefault();
+
+            if (contest == null)
+            {
+                return new HttpNotFoundResult("Contest not found.");
+            }
+
+            contest.IsFinalized = true;
+
+            //Determine winner or winners
+            //If there is a single winner
+            if (contest.RewardStrategy == RewardStrategy.SingleWinner)
+            {
+                var winnerId = contest.Pictures.OrderByDescending(p => p.Votes.Count).FirstOrDefault().AuthorId;
+                contest.WinnerId = winnerId;
+            }
+
+            this.Data.SaveChanges();
+
+            return RedirectToAction("Index", "Home");
+        }
+
         public ActionResult View(int id)
         {
             var loggedUserId = User.Identity.GetUserId();
@@ -140,7 +166,7 @@
             var loggedUserId = User.Identity.GetUserId();
             
             var contests = this.Data.Contests.All()
-                .Where(c => c.IsDismissed == false && ((c.ClosesOn > DateTime.Now || c.ClosesOn == null) && c.Participants.Count(p => p.Id == loggedUserId) == 0))
+                .Where(c => c.IsDismissed == false && c.IsFinalized == false && ((c.ClosesOn > DateTime.Now || c.ClosesOn == null) && c.Participants.Count(p => p.Id == loggedUserId) == 0))
                 .ToList();
 
             var model = new BrowseContestsViewModel
@@ -172,7 +198,7 @@
         public ActionResult ViewPast()
         {
             var contests = this.Data.Contests.All()
-                .Where(c => c.ClosesOn <= DateTime.Now)
+                .Where(c => c.ClosesOn <= DateTime.Now || c.IsDismissed || c.IsFinalized)
                 .OrderByDescending(c => c.ClosesOn)
                 .ProjectTo<ContestViewModel>()
                 .ToList();

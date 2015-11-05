@@ -60,6 +60,8 @@
 
         public bool IsDismissed { get; set; }
 
+        public bool IsFinalized { get; set; }
+
         public virtual ICollection<User> Participants
         {
             get { return this.participants; }

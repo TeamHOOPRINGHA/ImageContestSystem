@@ -27,11 +27,16 @@
                         {
                             <p style="color: red">This contest is dismissed.</p>
                         }
+                        else if (contest.IsFinalized)
+                        {
+                            <p style="color: red">This contest is finalized.</p>
+                        }
                         else
                         {
                             <button type="button" class="btn btn-info btn-sm" data-toggle="modal" data-target="#inviteUsers" data-contest-id="@contest.Id">Invite Users</button>
                             <button type="button" class="btn btn-info btn-sm" data-toggle="modal" data-target="#editContest" data-contest-id="@contest.Id">Edit</button>
-                            @Html.ActionLink("Dismiss", "Dismiss", "Contest", new { Id = contest.Id }, new { @class = "btn btn-info btn-sm" })
+                            @Html.ActionLink("Dismiss", "Dismiss", "Contest", new { Id = contest.Id }, new { @class = "btn btn-info btn-sm actionlink" })
+                            @Html.ActionLink("Finalize", "Finalize", "Contest", new { Id = contest.Id }, new { @class = "btn btn-info btn-sm actionlink" })
                         }
 
                         <div id="inviteUsers" class="modal fade" role="dialog">
