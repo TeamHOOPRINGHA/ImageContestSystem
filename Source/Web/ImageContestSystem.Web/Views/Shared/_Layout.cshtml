@@ -26,7 +26,7 @@
                     {
                         <li>@Html.ActionLink("Admin", "Index", "Home", new { Area = "Administration" }, null)</li>
                     }
-                    
+
                     @if (Request.IsAuthenticated)
                     {
                         <li class="dropdown">
@@ -38,6 +38,7 @@
                                 <li>@Html.ActionLink("My contests", "MyContests", "Home")</li>
                                 <li>@Html.ActionLink("Contests in which participating", "", "")</li>
                                 <li>@Html.ActionLink("Active contests", "ViewAll", "Contest")</li>
+                                <li>@Html.ActionLink("Past contests", "ViewPast", "Contest")</li>
                             </ul>
                         </li>
                         <li>@Html.ActionLink("Create a contest", "Add", "Contest")</li>
