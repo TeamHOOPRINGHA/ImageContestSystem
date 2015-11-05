@@ -23,7 +23,7 @@
             if (loggedUserId != null)
             {
                 var contests = this.Data.Contests.All()
-                .Where(c => c.Participants.Any(u => u.Id == loggedUserId))
+                .Where(c => c.Participants.Any(u => u.Id == loggedUserId) && !c.IsDismissed && !c.IsFinalized)
                 .ToList();
 
                 var paged = new HomeViewModel
@@ -62,6 +62,7 @@
 
 
             var contestsForAnonymUser = this.Data.Contests.All()
+                .Where(c => !c.IsDismissed && !c.IsFinalized)
                 .OrderByDescending(c => c.CreatedOn)
                 .ToList();
 

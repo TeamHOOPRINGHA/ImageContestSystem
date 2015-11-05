@@ -127,6 +127,8 @@
                     Creator = contest.Creator.UserName,
                     CreatedOn = contest.CreatedOn,
                     ClosesOn = contest.ClosesOn,
+                    IsDismissed = contest.IsDismissed,
+                    IsFinalized = contest.IsFinalized,
                     Pictures = contest.Pictures.Take(10).Select(p => new PhotoViewModel
                     {
                         Id = p.Id,
