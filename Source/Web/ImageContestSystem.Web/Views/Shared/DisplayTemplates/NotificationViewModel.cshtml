@@ -22,7 +22,7 @@
     {
         <div class="row">
             <div class="col-md-2">
-                @using (Ajax.BeginForm("AcceptInvititation", "Users",
+                @using (Ajax.BeginForm("AcceptInvititation", "User",
                     new AjaxOptions
                     {
                         HttpMethod = "POST",
@@ -36,7 +36,7 @@
                 }
             </div>
             <div class="col-md-2">
-                @using (Ajax.BeginForm("DeclineInvitation", "Users",
+                @using (Ajax.BeginForm("DeclineInvitation", "User",
                     new AjaxOptions
                     {
                         HttpMethod = "POST",
