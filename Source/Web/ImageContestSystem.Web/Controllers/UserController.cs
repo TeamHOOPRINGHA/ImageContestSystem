@@ -33,7 +33,7 @@
             contest.Participants.Add(loggedUser);
             this.Data.SaveChanges();
 
-            return RedirectToAction("Index", "MyContests");
+            return RedirectToAction("Index", "Home");
         }
 
         [Authorize]

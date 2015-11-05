@@ -140,7 +140,7 @@
             var loggedUserId = User.Identity.GetUserId();
             
             var contests = this.Data.Contests.All()
-                .Where(c => c.ClosesOn > DateTime.Now && c.Participants.Count(p => p.Id == loggedUserId) == 0)
+                .Where(c => c.IsDismissed == false && ((c.ClosesOn > DateTime.Now || c.ClosesOn == null) && c.Participants.Count(p => p.Id == loggedUserId) == 0))
                 .ToList();
 
             var model = new BrowseContestsViewModel
